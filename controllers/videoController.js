@@ -19,17 +19,17 @@ export const search = async (req, res) => {
   const {
     query: { term: searchingBy }
   } = req;
-  let videos = [];
+  let video = [];
   try {
-    videos = await Video.find({
+    video = await Video.find({
       title: { $regex: searchingBy, $options: "i" }
     });
-    console.log("비디오배열: " + videos);
+    console.log("비디오배열: " + video);
   } catch (error) {
     console.log(error);
   }
 
-  res.render("search", { pageTitle: "Search", searchingBy, videos });
+  res.render("search", { pageTitle: "Search", searchingBy, video });
 };
 
 // Upload
