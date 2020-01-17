@@ -1,10 +1,17 @@
 extends layouts/main
 
 block content
-    .form-container
-        form(action=`/videos${routes.upload}`, method="post", enctype="multipart/form-data")
-            label(for="file") Video File
-            input(type="file", id="file", name="videoFile", required=true, accept="video/*")
-            input(type="text", placeholder="Title", name="title", required=true)
-            textarea(name="description", placeholder="Description", required=true)
-            input(type="submit", value="Upload Video")
+    .form__container
+        .form__container__top
+            .title
+                |Video Upload
+            .body
+                form(action=`/videos${routes.upload}`, method="post", enctype="multipart/form-data")
+                    .fileUpload
+                        label(for="file") Video File
+                        input(type="file", id="file", name="videoFile", required=true, accept="video/*")
+                    label(for="titleinput") Title
+                    input(id="titleinput" type="text", placeholder="Title", name="title", required=true)
+                    label(for="description") Descrition
+                    textarea(name="description", id="description", placeholder="Description", required=true)
+                    input(type="submit", value="Upload Video")

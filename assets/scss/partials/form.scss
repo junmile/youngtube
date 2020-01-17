@@ -1,0 +1,53 @@
+.form__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .form__container__top {
+    border-radius: 15px;
+    box-shadow: 0 3px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 400px;
+
+    .body {
+      padding: 40px;
+      padding-top: 0;
+      .fileUpload {
+        margin-bottom: 25px;
+        input[type="file"] {
+          border-style: none;
+          background-color: white;
+        }
+      }
+      button {
+        margin-top: 25px;
+      }
+      textarea {
+        height: 250px;
+        margin-bottom: 25px;
+      }
+      input,
+      button {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+      form {
+        width: 100%;
+
+        input {
+          width: 100%;
+          padding-top: 10px;
+          padding-bottom: 10px;
+
+          &:not(:last-child) {
+            margin-bottom: 25px;
+          }
+        }
+        input[type="submit"] {
+          //   background-color: #3498db;
+          background-color: $yellow;
+          color: white;
+        }
+      }
+    }
+  }
+}
