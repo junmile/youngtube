@@ -1,10 +1,11 @@
-import "./db";
-import app from "./app";
-import dotenv from "dotenv";
+import './db';
+import dotenv from 'dotenv';
+import app from './app';
+import './models/Comment';
+import './models/Video';
+import './models/User';
+
 dotenv.config();
-import "./models/Video";
-import "./models/Comment";
-import "./models/User";
 
 const PORT = process.env.PORT || 4000;
 
