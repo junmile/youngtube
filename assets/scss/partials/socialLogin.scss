@@ -29,5 +29,13 @@
       background: $facebook;
       color: white;
     }
+
+    .social-login--kakao {
+      background: $kakao;
+      color: white;
+      img {
+        width: 100%;
+      }
+    }
   }
 }

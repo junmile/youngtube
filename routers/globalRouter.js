@@ -9,7 +9,10 @@ import {
   postJoin,
   postLogin,
   githubLogin,
-  postGithubLogIn
+  postGithubLogIn,
+  getMe,
+  postFacebookLogin,
+  facebookLogin
 } from '../controllers/userController';
 import { onlyPublic, onlyPrivate } from '../middlewares';
 
@@ -32,5 +35,15 @@ globalRouter.get(
   passport.authenticate('github', { failureRedirect: '/login' }),
   postGithubLogIn
 );
+
+globalRouter.get(routes.facebook, facebookLogin);
+
+globalRouter.get(
+  routes.facebookCallback,
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  postFacebookLogin
+);
+
+globalRouter.get(routes.me, getMe);
 
 export default globalRouter;

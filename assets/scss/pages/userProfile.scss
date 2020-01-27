@@ -1,0 +1,16 @@
+.user-profile {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .user-profile__header {
+    img {
+      width: 220px;
+      border-radius: 1000px;
+      margin-bottom: 25px;
+    }
+    h4 {
+      font-size: 25px;
+    }
+  }
+}
