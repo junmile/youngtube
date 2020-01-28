@@ -3,14 +3,37 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+
   .user-profile__header {
+    text-align: center;
+    position: relative;
+    align-self: center;
+    overflow: hidden;
     img {
-      width: 220px;
       border-radius: 1000px;
+      width: 220px;
+      height: 220px;
+      align-self: center;
       margin-bottom: 25px;
     }
-    h4 {
-      font-size: 25px;
+  }
+  h4 {
+    font-size: 25px;
+    margin-bottom: 25px;
+  }
+  .user-profile__btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    .edit_profile {
+      width: 100%;
+      max-width: 150px;
+      margin-bottom: 25px;
+    }
+    .change_password {
+      width: 100%;
+      max-width: 200px;
     }
   }
 }

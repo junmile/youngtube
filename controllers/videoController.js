@@ -1,5 +1,6 @@
 import routes from '../routes';
 import Video from '../models/Video';
+import User from '../models/User';
 
 // Home
 
@@ -45,8 +46,11 @@ export const postUpload = async (req, res) => {
   const newVideo = await Video.create({
     fileUrl: path,
     title,
-    description
+    description,
+    creator: req.user.id
   });
+  req.user.videos.push(newVideo.id);
+  req.user.save();
   res.redirect(routes.videoDetail(newVideo.id));
 };
 
@@ -54,11 +58,16 @@ export const postUpload = async (req, res) => {
 
 export const videoDetail = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
+    user: { id: userId }
   } = req;
   try {
-    const video = await Video.findById(id);
-    res.render('videoDetail', { pageTitle: video.title, video });
+    const video = await Video.findById(id).populate('creator');
+    const user = await User.findById(userId);
+
+    console.log(video);
+    console.log(user);
+    res.render('videoDetail', { pageTitle: video.title, video, user });
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -97,6 +106,7 @@ export const deleteVideo = async (req, res) => {
   const {
     params: { id }
   } = req;
+  const user = User.findById(req.user.id);
   try {
     await Video.findOneAndRemove({ _id: id });
   } catch (error) {

@@ -35,6 +35,6 @@ passport.use(
 );
 
 // passport로 쿠키에 사용자 아이디를 담고,
-passport.serializeUser((user, done) => done(null, user));
 // 그아이디를 통해서 사용자를 식별한다
-passport.deserializeUser((user, done) => done(null, user));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
