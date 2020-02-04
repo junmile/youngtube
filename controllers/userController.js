@@ -115,6 +115,8 @@ export const userDetail = async (req, res) => {
   try {
     const user = await User.findById(id);
     res.render('userDetail', { pageTitle: 'User Detail', user });
+    console.log('아바타');
+    console.log(user.avatarUrl);
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -132,9 +134,8 @@ export const postEditProfile = async (req, res) => {
     const updateUser = await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
-      avatarUrl: file ? file.path : req.user.avatarUrl
+      avatarUrl: file ? `/${file.path}` : req.user.avatarUrl
     });
-    console.log(req.user.id);
     updateUser.save();
 
     res.redirect(routes.me);

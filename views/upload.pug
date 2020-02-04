@@ -6,6 +6,9 @@ block content
             .title
                 |Video Upload
             .body
+                .record__container#jsRecordContainer
+                    video#jsVideoPreview
+                    button#jsRecordBtn Start Recording
                 form(action=`/videos${routes.upload}`, method="post", enctype="multipart/form-data")
                     .fileUpload
                         label(for="file") Video File

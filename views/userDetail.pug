@@ -6,12 +6,12 @@ block content
             img.avatar(src=user.avatarUrl)
         h4.profile__username=user.name
         if user.id === loggedUser.id
-        .user-profile__btns
-            a.edit_profile(href=`/users${routes.editProfile}`)
-                button
-                    i.fas.fa-pen 
-                        |Edit-Profile
-            a.change_password(href=`/users${routes.changePassword}`)
-                button
-                    i.fas.fa-key 
-                        |Change-Password
+            .user-profile__btns
+                a.edit_profile(href=`/users${routes.editProfile}`)
+                    button
+                        i.fas.fa-pen 
+                            |Edit-Profile
+                a.change_password(href=`/users${routes.changePassword}`)
+                    button
+                        i.fas.fa-key 
+                            |Change-Password
