@@ -1,13 +1,15 @@
+import { response } from 'express';
 import routes from '../routes';
 import Video from '../models/Video';
 import User from '../models/User';
-import { response } from 'express';
 
 // Home
 
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({}).sort({ _id: -1 });
+    const videos = await Video.find({})
+      .sort({ _id: -1 })
+      .populate('creator');
     res.render('home', { pageTitle: 'Home', videos });
   } catch (error) {
     console.log(error);
@@ -62,7 +64,9 @@ export const videoDetail = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const video = await Video.findById(id).populate('creator');
+    const video = await Video.findById(id)
+      .populate('creator')
+      .populate('comments');
     video.views += 1;
     video.save();
     res.status(200);
@@ -125,4 +129,24 @@ export const deleteVideo = async (req, res) => {
   res.redirect(routes.home);
 };
 
-// Register Video View
+// Add Comment
+export const postAddComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { comment },
+    user
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    const newComment = await Comment.create({
+      text: comment,
+      creator: user.id
+    });
+    video.comments.push(newComment.id);
+    video.save();
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};

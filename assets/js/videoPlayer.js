@@ -97,7 +97,6 @@ function setTotalTime() {
 }
 
 function handleEnded() {
-  registerView();
   videoPlayer.currentTime = 0;
   playBtn.innerHTML = '<i class="fas fa-play"></i>';
 }
