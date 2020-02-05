@@ -14,7 +14,7 @@
       padding-top: 0;
       .fileUpload {
         margin-bottom: 25px;
-        input[type="file"] {
+        input[type='file'] {
           border-style: none;
           background-color: white;
         }
@@ -26,10 +26,7 @@
         height: 250px;
         margin-bottom: 25px;
       }
-      input,
-      button {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      }
+
       form {
         width: 100%;
 
@@ -42,7 +39,7 @@
             margin-bottom: 25px;
           }
         }
-        input[type="submit"] {
+        input[type='submit'] {
           //   background-color: #3498db;
           background-color: $yellow;
           color: white;

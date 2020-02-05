@@ -1,6 +1,7 @@
 import routes from '../routes';
 import Video from '../models/Video';
 import User from '../models/User';
+import { response } from 'express';
 
 // Home
 
@@ -62,9 +63,12 @@ export const videoDetail = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id).populate('creator');
-
+    video.views += 1;
+    video.save();
+    res.status(200);
     res.render('videoDetail', { pageTitle: video.title, video });
   } catch (error) {
+    res.status(400);
     res.redirect(routes.home);
   }
 };
@@ -120,3 +124,5 @@ export const deleteVideo = async (req, res) => {
 
   res.redirect(routes.home);
 };
+
+// Register Video View

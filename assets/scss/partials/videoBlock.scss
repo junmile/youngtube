@@ -1,11 +1,25 @@
 .videoBlock {
-  video {
-    max-width: 100%;
+  .video__thumbnail {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 56.26%;
+    object-fit: cover;
+    background-color: black;
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
     margin-bottom: 14px;
   }
   .videoBlock__title {
     font-size: 18px;
-    font-weight: 400;
+    font-weight: bold;
     margin-bottom: 10px;
   }
 }

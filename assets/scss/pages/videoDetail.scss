@@ -6,9 +6,23 @@
   .video__player {
     width: 100%;
     text-align: center;
-    video {
+    #video {
+      text-align: center;
+      position: relative;
       width: 100%;
-      border-radius: 5px;
+      height: 0;
+      overflow: hidden;
+      padding-bottom: 56.26%;
+      object-fit: cover;
+      background-color: black;
+      video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        border-radius: 5px;
+      }
     }
   }
   .video__info {
