@@ -2,6 +2,7 @@ import { response } from 'express';
 import routes from '../routes';
 import Video from '../models/Video';
 import User from '../models/User';
+import Comment from '../models/Comment';
 
 // Home
 
@@ -12,7 +13,6 @@ export const home = async (req, res) => {
       .populate('creator');
     res.render('home', { pageTitle: 'Home', videos });
   } catch (error) {
-    console.log(error);
     res.render('home', { pageTitle: 'Home', videos: [] });
   }
 };
@@ -66,11 +66,19 @@ export const videoDetail = async (req, res) => {
   try {
     const video = await Video.findById(id)
       .populate('creator')
-      .populate('comments');
+      .populate({
+        path: 'comments',
+        populate: { path: 'creator' }
+      });
+    const user = await User.findById(req.user.id);
     video.views += 1;
     video.save();
     res.status(200);
-    res.render('videoDetail', { pageTitle: video.title, video });
+    res.render('videoDetail', {
+      pageTitle: video.title,
+      video,
+      user
+    });
   } catch (error) {
     res.status(400);
     res.redirect(routes.home);
@@ -140,11 +148,12 @@ export const postAddComment = async (req, res) => {
     const video = await Video.findById(id);
     const newComment = await Comment.create({
       text: comment,
-      creator: user.id
+      creator: user
     });
     video.comments.push(newComment.id);
     video.save();
   } catch (error) {
+    console.log(error);
     res.status(400);
   } finally {
     res.end();

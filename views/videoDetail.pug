@@ -25,12 +25,22 @@ block content
                             a(href=routes.userDetail(video.creator.id))=video.creator.name
                         p.video__description=video.description 
         .video__comments 
-            if video.comments.length === 1
-                span.video__comment-number 1 comment
+            if video.comments.length <= 1
+                span.video__comment-number
+                    span#jsCommentNumber #{video.comments.length} 
+                    |  comment
             else
-                span.video__comment-number #{video.comments.length} comments
-            form.add__comment#jsAddComment
-                input(type="text", placeholder="Add a comment")
-            ul.video__comments-list
-                each comment in video.comments
-                    span comment.text
+                span.video__comment-number
+                    span#jsCommentNumber #{video.comments.length} 
+                    |  comments
+            .comment
+                img.commentor(src=user.avatarUrl)    
+                form.add__comment#jsAddComment
+                    input(type="text", placeholder="Add a comment")
+                    input#hiddenImg(type="hidden", value=user.avatarUrl)
+            ul.video__comments-list#jsCommentList
+                each comment in video.comments.reverse()
+                    .comment__group
+                        img(src=comment.creator.avatarUrl)
+                        li
+                            span=comment.text
