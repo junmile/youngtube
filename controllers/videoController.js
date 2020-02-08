@@ -159,3 +159,19 @@ export const postAddComment = async (req, res) => {
     res.end();
   }
 };
+
+export const postDeleteComment = async (req, res) => {
+  const {
+    params: { commentId, videoId }
+  } = req;
+  console.log(commentId);
+  console.log(videoId);
+  try {
+    await Comment.deleteOne({ _id: id });
+    await Video.update({ _id: req.video.id }, { $pull: { comments: id } });
+    res.status(200);
+    res.send();
+  } catch (error) {
+    res.status(400);
+  }
+};

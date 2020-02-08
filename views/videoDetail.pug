@@ -38,9 +38,29 @@ block content
                 form.add__comment#jsAddComment
                     input(type="text", placeholder="Add a comment")
                     input#hiddenImg(type="hidden", value=user.avatarUrl)
+                    input#hiddenName(type="hidden", value=user.name)
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
                     .comment__group
                         img(src=comment.creator.avatarUrl)
                         li
+                            span=comment.creator.name
                             span=comment.text
+                        .menuIcon
+                            i.jsShortCut.fas.fa-ellipsis-v
+                            .drop__div
+                                .drop__menu(id=comment.id)
+                                    if user.id === comment.creator.id   
+                                        span.updateComment
+                                            a
+                                                i.fas.fa-pencil-alt  
+                                                |수정하기
+                                        span.deleteComment
+                                            a 
+                                                i.fas.fa-trash-alt
+                                                |삭제하기
+                                    else 
+                                       span.declarationComment
+                                            a 
+                                                i.far.fa-angry
+                                                |신고하기
