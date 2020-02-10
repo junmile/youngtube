@@ -2,6 +2,7 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-restricted-syntax */
 import axios from 'axios';
+import deleteC from './deleteComment';
 
 const addCommentForm = document.getElementById('jsAddComment');
 const commentList = document.getElementById('jsCommentList');
@@ -9,8 +10,7 @@ const commentNumber = document.getElementById('jsCommentNumber');
 const shortCut = document.getElementsByClassName('jsShortCut');
 const dropDiv = document.getElementsByClassName('drop__div');
 const updateComment = document.getElementsByClassName('updateComment');
-const deleteComment = document.getElementsByClassName('deleteComment');
-const commentArray = document.getElementsByClassName('commentId');
+
 let avatar;
 let name;
 
@@ -52,6 +52,7 @@ const addComment = (comment) => {
   span2.appendChild(a1);
   span2.className = 'updateComment';
   span3.appendChild(a2);
+  span3.addEventListener('click', deleteC);
   span3.className = 'deleteComment';
   dropdiv.appendChild(span2);
   dropdiv.appendChild(span3);
@@ -114,30 +115,10 @@ const toggleDropDown = (event) => {
   }
 };
 
-const deleteC = async (event) => {
-  const commentId = event.target.parentNode.getAttribute('id');
-  const videoId = window.location.href.split('/videos/')[1];
-  const response = await axios({
-    url: `/api/${commentId}/comment/delete`,
-    method: 'POST',
-    data: {
-      commentId,
-      videoId
-    }
-  });
-  if (response.status === 200) {
-    alert('악!!!');
-  }
-};
-
 function init() {
   addCommentForm.addEventListener('submit', handleSubmit);
   Array.from(shortCut).forEach((element) => {
     element.addEventListener('click', toggleDropDown);
-  });
-
-  Array.from(deleteComment).forEach((element) => {
-    element.addEventListener('click', deleteC);
   });
 }
 
