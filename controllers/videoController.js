@@ -141,14 +141,15 @@ export const deleteVideo = async (req, res) => {
 export const postAddComment = async (req, res) => {
   const {
     params: { id },
-    body: { comment },
+    body: { comment, videoId },
     user
   } = req;
   try {
     const video = await Video.findById(id);
     const newComment = await Comment.create({
       text: comment,
-      creator: user
+      creator: user,
+      video: videoId
     });
     video.comments.push(newComment.id);
     video.save();
@@ -169,6 +170,34 @@ export const postDeleteComment = async (req, res) => {
     await Comment.deleteOne({ _id: commentId });
     await Video.update({ _id: videoId }, { $pull: { comments: commentId } });
     res.status(200);
+    res.send();
+  } catch (error) {
+    res.status(400);
+  }
+};
+
+export const postDeleteCommentAjax = async (req, res) => {
+  const {
+    body: { index, userId, videoId }
+  } = req;
+  try {
+    await Comment.find({ creator: userId, video: videoId }, (err, arr) => {
+      if (err) {
+        console.log('에러');
+      } else {
+        console.log('엘스');
+        if (arr.length > 0) {
+          for (const item of arr) {
+            console.log('이따!!');
+            console.log(item);
+          }
+        }
+      }
+    });
+
+    console.log('이거');
+
+    res.stauts(200);
     res.send();
   } catch (error) {
     res.status(400);

@@ -36,6 +36,7 @@ const API = '/api';
 const REGISTER_VIEW = '/:id/view';
 const ADD_COMMENT = '/:id/comment';
 const DELETE_COMMENT = '/:id/comment/delete';
+const DELETE_COMMENT_AJAX = '/:id/comment/deleteajax';
 const UPDATE_COMMENT = '/:id/comment/update';
 
 const routes = {
@@ -82,7 +83,8 @@ const routes = {
   registerView: REGISTER_VIEW,
   addComment: ADD_COMMENT,
   updateComment: UPDATE_COMMENT,
-  deleteComment: DELETE_COMMENT
+  deleteComment: DELETE_COMMENT,
+  deleteCommentAjax: DELETE_COMMENT_AJAX
 };
 
 export default routes;

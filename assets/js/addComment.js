@@ -2,7 +2,7 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-restricted-syntax */
 import axios from 'axios';
-import deleteC from './deleteComment';
+import deleteCAjax from './deleteComment';
 
 const addCommentForm = document.getElementById('jsAddComment');
 const commentList = document.getElementById('jsCommentList');
@@ -28,7 +28,6 @@ const addComment = (comment) => {
   const i = document.createElement('i');
   const dropdiv = document.createElement('div');
   const dropmenu = document.createElement('div');
-
   const span2 = document.createElement('span');
   const span3 = document.createElement('span');
   const a1 = document.createElement('a');
@@ -52,8 +51,8 @@ const addComment = (comment) => {
   span2.appendChild(a1);
   span2.className = 'updateComment';
   span3.appendChild(a2);
-  span3.addEventListener('click', deleteC);
-  span3.className = 'deleteComment';
+  span3.className = 'deleteCommentAjax';
+  span3.addEventListener('click', deleteCAjax);
   dropdiv.appendChild(span2);
   dropdiv.appendChild(span3);
   dropdiv.className = 'drop__menu';
@@ -77,7 +76,8 @@ const sendComment = async (comment) => {
     url: `/api/${videoId}/comment`,
     method: 'POST',
     data: {
-      comment
+      comment,
+      videoId
     }
   });
   if (response.status === 200) {

@@ -39,6 +39,7 @@ block content
                     input(type="text", placeholder="Add a comment")
                     input#hiddenImg(type="hidden", value=user.avatarUrl)
                     input#hiddenName(type="hidden", value=user.name)
+                    input#userId(type="hidden", value=user.id)   
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
                     .comment__group
@@ -50,7 +51,7 @@ block content
                             i.jsShortCut.fas.fa-ellipsis-v
                             .drop__div
                                 .drop__menu(id=comment.id)
-                                    if user.id === comment.creator.id   
+                                    if user.id === comment.creator.id
                                         span.updateComment
                                             a
                                                 i.fas.fa-pencil-alt  
