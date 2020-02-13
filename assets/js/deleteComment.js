@@ -2,6 +2,8 @@ import axios from 'axios';
 
 const deleteComment = document.getElementsByClassName('deleteComment');
 const deleteCommentAjax = document.getElementsByClassName('deleteCommentAjax');
+const jsCountNumber = document.getElementById('jsCommentNumber');
+const comments = document.getElementById('word');
 
 const deleteCAjax = async (event) => {
   const userId = document.getElementById('userId').value;
@@ -13,9 +15,6 @@ const deleteCAjax = async (event) => {
     }
     index += 1;
   }
-  console.log(index);
-  console.log(userId);
-  console.log(videoId);
   const response = await axios({
     url: `/api/${videoId}/comment/deleteajax`,
     method: 'POST',
@@ -25,14 +24,19 @@ const deleteCAjax = async (event) => {
       videoId
     }
   });
+  if (response.status === 200) {
+    jsCountNumber.innerHTML = Number(jsCountNumber.innerHTML) - 1;
+    if (Number(jsCountNumber.innerHTML) <= 1) {
+      comments.innerHTML = ' comment';
+    }
+    event.target.parentNode.parentNode.parentNode.parentNode.remove();
+  }
 };
 
 const deleteC = async (event) => {
   const commentId = event.target.parentNode.getAttribute('id');
   const videoId = window.location.href.split('/videos/')[1];
-  console.log('1번');
-  console.log(commentId);
-  console.log(videoId);
+
   const response = await axios({
     url: `/api/${commentId}/comment/delete`,
     method: 'POST',
@@ -42,6 +46,11 @@ const deleteC = async (event) => {
     }
   });
   if (response.status === 200) {
+    jsCountNumber.innerHTML = Number(jsCountNumber.innerHTML) - 1;
+    if (Number(jsCountNumber.innerHTML) <= 1) {
+      comments.innerHTML = ' comment';
+    }
+    event.target.parentNode.parentNode.parentNode.parentNode.remove();
   }
 };
 

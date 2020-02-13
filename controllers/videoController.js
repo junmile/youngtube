@@ -181,23 +181,17 @@ export const postDeleteCommentAjax = async (req, res) => {
     body: { index, userId, videoId }
   } = req;
   try {
-    await Comment.find({ creator: userId, video: videoId }, (err, arr) => {
-      if (err) {
-        console.log('에러');
-      } else {
-        console.log('엘스');
-        if (arr.length > 0) {
-          for (const item of arr) {
-            console.log('이따!!');
-            console.log(item);
-          }
-        }
-      }
-    });
+    const arr = await Comment.find()
+      .where('creator')
+      .equals(userId)
+      .where('video')
+      .equals(videoId)
+      .sort('-createdAt');
 
-    console.log('이거');
-
-    res.stauts(200);
+    const idByIndex = arr[index].id;
+    await Comment.findOneAndDelete({ _id: idByIndex });
+    await Video.update({ _id: videoId }, { $pull: { comments: idByIndex } });
+    res.status(200);
     res.send();
   } catch (error) {
     res.status(400);

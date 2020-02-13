@@ -26,7 +26,8 @@ module.exports = {
     'implicit-arrow-linebreak': 0,
     'space-before-function-paren': 0,
     'no-use-before-define': 0,
-    'no-restricted-syntax': 0
+    'no-restricted-syntax': 0,
+    'no-param-reassign': 0
   },
   env: {
     browser: true

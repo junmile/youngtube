@@ -38,6 +38,7 @@ const ADD_COMMENT = '/:id/comment';
 const DELETE_COMMENT = '/:id/comment/delete';
 const DELETE_COMMENT_AJAX = '/:id/comment/deleteajax';
 const UPDATE_COMMENT = '/:id/comment/update';
+const UPDATE_COMMENT_AJAX = '/:id/comment/updateajax';
 
 const routes = {
   home: HOME,
@@ -83,6 +84,7 @@ const routes = {
   registerView: REGISTER_VIEW,
   addComment: ADD_COMMENT,
   updateComment: UPDATE_COMMENT,
+  updateCommentAjax: UPDATE_COMMENT_AJAX,
   deleteComment: DELETE_COMMENT,
   deleteCommentAjax: DELETE_COMMENT_AJAX
 };

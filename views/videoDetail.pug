@@ -28,11 +28,11 @@ block content
             if video.comments.length <= 1
                 span.video__comment-number
                     span#jsCommentNumber #{video.comments.length} 
-                    |  comment
+                    span#word   comment
             else
                 span.video__comment-number
                     span#jsCommentNumber #{video.comments.length} 
-                    |  comments
+                    span#word   comments
             .comment
                 img.commentor(src=user.avatarUrl)    
                 form.add__comment#jsAddComment
@@ -49,7 +49,7 @@ block content
                             span=comment.text
                         .menuIcon
                             i.jsShortCut.fas.fa-ellipsis-v
-                            .drop__div
+                            .drop__div(style="display:none")
                                 .drop__menu(id=comment.id)
                                     if user.id === comment.creator.id
                                         span.updateComment

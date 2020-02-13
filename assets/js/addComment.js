@@ -3,13 +3,13 @@
 /* eslint-disable no-restricted-syntax */
 import axios from 'axios';
 import deleteCAjax from './deleteComment';
+import updateCAjax from './updateComment';
 
 const addCommentForm = document.getElementById('jsAddComment');
 const commentList = document.getElementById('jsCommentList');
 const commentNumber = document.getElementById('jsCommentNumber');
 const shortCut = document.getElementsByClassName('jsShortCut');
 const dropDiv = document.getElementsByClassName('drop__div');
-const updateComment = document.getElementsByClassName('updateComment');
 
 let avatar;
 let name;
@@ -50,6 +50,7 @@ const addComment = (comment) => {
   a2.innerHTML += '삭제하기';
   span2.appendChild(a1);
   span2.className = 'updateComment';
+  span2.addEventListener('click', updateCAjax);
   span3.appendChild(a2);
   span3.className = 'deleteCommentAjax';
   span3.addEventListener('click', deleteCAjax);
@@ -96,6 +97,7 @@ const handleSubmit = (event) => {
 };
 
 const toggleDropDown = (event) => {
+  event.stopPropagation();
   let index = 0;
   for (const item of shortCut) {
     if (item === event.target) {
@@ -105,7 +107,7 @@ const toggleDropDown = (event) => {
   }
 
   const target = dropDiv[index].style;
-  if (target.display === '') {
+  if (target.display !== 'block') {
     for (let i = 0; i < dropDiv.length; i++) {
       dropDiv[i].style.display = '';
     }
@@ -115,8 +117,18 @@ const toggleDropDown = (event) => {
   }
 };
 
+const toggleClose = (event) => {
+  const dropMenu = document.getElementsByClassName('drop__menu');
+  const closeTarget = document.getElementsByClassName('drop__div');
+  const menu = document.getElementsByClassName('menuIcon');
+  Array.from(closeTarget).forEach((element) => {
+    element.style.display = '';
+  });
+};
+
 function init() {
   addCommentForm.addEventListener('submit', handleSubmit);
+  window.addEventListener('click', toggleClose);
   Array.from(shortCut).forEach((element) => {
     element.addEventListener('click', toggleDropDown);
   });
