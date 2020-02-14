@@ -197,3 +197,12 @@ export const postDeleteCommentAjax = async (req, res) => {
     res.status(400);
   }
 };
+
+// export const postUpdateComment = async (req, res) => {
+//   const {
+//     body: { videoId, commentId }
+//   } = req;
+//   try {
+//   }
+// };
+export const postUpdateCommentAjax = async (req, res) => {};

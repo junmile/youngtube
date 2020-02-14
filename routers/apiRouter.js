@@ -13,5 +13,7 @@ apiRouter.get(routes.registerView, videoDetail);
 apiRouter.post(routes.addComment, postAddComment);
 apiRouter.post(routes.deleteComment, postDeleteComment);
 apiRouter.post(routes.deleteCommentAjax, postDeleteCommentAjax);
+// apiRouter.post(routes.updateComment, postUpdateComment);
+// apiRouter.post(routes.updateCommentAjax, postUpdateCommentAjax);
 
 export default apiRouter;
