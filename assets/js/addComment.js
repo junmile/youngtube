@@ -90,6 +90,7 @@ const handleSubmit = (event) => {
   event.preventDefault();
   const commentInput = addCommentForm.querySelector('input');
   const comment = commentInput.value;
+  console.log(commentInput);
   name = document.getElementById('hiddenName').value;
   avatar = document.getElementById('hiddenImg').value;
   sendComment(comment);
@@ -117,10 +118,8 @@ const toggleDropDown = (event) => {
   }
 };
 
-const toggleClose = (event) => {
-  const dropMenu = document.getElementsByClassName('drop__menu');
+const toggleClose = () => {
   const closeTarget = document.getElementsByClassName('drop__div');
-  const menu = document.getElementsByClassName('menuIcon');
   Array.from(closeTarget).forEach((element) => {
     element.style.display = '';
   });

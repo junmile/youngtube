@@ -28,7 +28,8 @@ module.exports = {
     'no-use-before-define': 0,
     'no-restricted-syntax': 0,
     'no-param-reassign': 0,
-    'operator-linebreak': 0
+    'operator-linebreak': 0,
+    'prefer-destructuring': 0
   },
   env: {
     browser: true
