@@ -13,54 +13,80 @@
   .videoPlayer__controls {
     opacity: 0;
     transition: opacity 0.2s linear;
-    color: white;
-    font-size: 16px;
-    position: absolute;
-    bottom: 2px;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    width: 100%;
-    display: grid;
-    z-index: 1;
-    grid-template-columns: 3fr 1fr 3fr;
-    .videoPlayer__column:first-child {
-      display: flex;
-      flex-direction: row;
-      #volumeController {
+    .videoPlayer__playbar {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      bottom: 36px;
+      height: 5px;
+      width: 100%;
+      display: grid;
+      z-index: 1;
+      #playBar {
+        width: 85%;
+        background-color: #ef476f;
+        animation: progressAnimation 6s;
+      }
+      @keyframes progressAnimation {
+        0% {
+          width: 5%;
+          background-color: #f9bcca;
+        }
+        100% {
+          width: 85%;
+          background-color: #ef476f;
+        }
+      }
+    }
+    .detail {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 16px;
+      position: absolute;
+      bottom: 0px;
+      padding: 10px;
+      width: 100%;
+      display: grid;
+      z-index: 1;
+      grid-template-columns: 3fr 1fr 3fr;
+      .videoPlayer__column:first-child {
         display: flex;
         flex-direction: row;
-        justify-self: start;
-        #jsVolumeButton {
-          min-width: 30px;
-        }
-        /* The slider itself */
-        #jsVolume {
-          -webkit-appearance: none; /* Override default CSS styles */
-          appearance: none;
-          border-radius: 15px;
-          max-width: 80px; /* Full-width */
-          height: 5px; /* Specified height */
-          padding: 2px 0px;
-          background: #d3d3d3; /* Grey background */
-          outline: none; /* Remove outline */
-          -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
-          transition: opacity 0.2s;
-          align-self: center;
-          margin-right: 10px;
-          display: none;
-        }
-        /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-        #jsVolume::-webkit-slider-thumb {
-          -webkit-appearance: none; /* Override default look */
-          appearance: none;
-          border-radius: 15px;
-          width: 15px; /* Set a specific slider handle width */
-          height: 15px; /* Slider handle height */
-          background: #fcc159; /* Green background */
-          cursor: pointer; /* Cursor on hover */
-        }
-        span:first-child {
-          margin-right: 10px;
+        #volumeController {
+          display: flex;
+          flex-direction: row;
+          justify-self: start;
+          #jsVolumeButton {
+            min-width: 30px;
+          }
+          /* The slider itself */
+          #jsVolume {
+            -webkit-appearance: none; /* Override default CSS styles */
+            appearance: none;
+            border-radius: 15px;
+            max-width: 80px; /* Full-width */
+            height: 5px; /* Specified height */
+            padding: 2px 0px;
+            background: #d3d3d3; /* Grey background */
+            outline: none; /* Remove outline */
+            -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+            transition: opacity 0.2s;
+            align-self: center;
+            margin-right: 10px;
+            display: none;
+          }
+          /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+          #jsVolume::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Override default look */
+            appearance: none;
+            border-radius: 15px;
+            width: 15px; /* Set a specific slider handle width */
+            height: 15px; /* Slider handle height */
+            background: #fcc159; /* Green background */
+            cursor: pointer; /* Cursor on hover */
+          }
+          span:first-child {
+            margin-right: 10px;
+          }
         }
       }
     }

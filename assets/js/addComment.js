@@ -3,7 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 import axios from 'axios';
 import deleteCAjax from './deleteComment';
-import updateCAjax from './updateComment';
+import inputNode from './updateComment';
 
 const addCommentForm = document.getElementById('jsAddComment');
 const commentList = document.getElementById('jsCommentList');
@@ -50,7 +50,7 @@ const addComment = (comment) => {
   a2.innerHTML += '삭제하기';
   span2.appendChild(a1);
   span2.className = 'updateComment';
-  span2.addEventListener('click', updateCAjax);
+  span2.addEventListener('click', inputNode);
   span3.appendChild(a2);
   span3.className = 'deleteCommentAjax';
   span3.addEventListener('click', deleteCAjax);

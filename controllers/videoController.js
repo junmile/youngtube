@@ -198,11 +198,35 @@ export const postDeleteCommentAjax = async (req, res) => {
   }
 };
 
-// export const postUpdateComment = async (req, res) => {
-//   const {
-//     body: { videoId, commentId }
-//   } = req;
-//   try {
-//   }
-// };
-export const postUpdateCommentAjax = async (req, res) => {};
+export const postUpdateComment = async (req, res) => {
+  const {
+    body: { commentId, comment }
+  } = req;
+  try {
+    await Comment.findByIdAndUpdate(commentId, { text: comment });
+    res.status(200);
+    res.send();
+  } catch (error) {
+    res.status(400);
+  }
+};
+export const postUpdateCommentAjax = async (req, res) => {
+  const {
+    body: { videoId, userId, index, comment }
+  } = req;
+  try {
+    const arr = await Comment.find()
+      .where('creator')
+      .equals(userId)
+      .where('video')
+      .equals(videoId)
+      .sort('-createdAt');
+
+    const idByIndex = arr[index].id;
+    await Comment.findByIdAndUpdate(idByIndex, { text: comment });
+    res.status(200);
+    res.send();
+  } catch (error) {
+    res.status(400);
+  }
+};

@@ -1,45 +1,57 @@
 import axios from 'axios';
 
 const updateComment = document.getElementsByClassName('updateComment');
-
+const commentGroup = document.getElementsByClassName('comment__group');
 const updateC = async (event) => {
   event.preventDefault();
-  console.log('시작');
   const videoId = window.location.href.split('/videos/')[1];
   const commentId = event.target.closest('.comment__group').childNodes[2]
     .childNodes[1].childNodes[0].id;
-  inputNode(event.target);
-  const comment = document.getElementsByClassName('commentUpdateInput');
-  console.log(comment);
+  const comment = document.getElementsByClassName('commentUpdateInput').comment
+    .value;
+
   const response = await axios({
     url: `/api/${videoId}/comment/update`,
     method: 'POST',
-    data: { videoId, commentId, comment }
+    data: { commentId, comment }
   });
+  if (response.status === 200) {
+    complete(event, comment);
+  }
 };
 
 const updateCAjax = async (event) => {
+  event.preventDefault();
+
   let index = 0;
-  for (const item of updateComment) {
-    if (event.target === item) {
+  for (const item of commentGroup) {
+    if (event.target.closest('.comment__group') === item) {
       break;
     }
     index += 1;
   }
   const userId = document.getElementById('userId').value;
   const videoId = window.location.href.split('/videos/')[1];
+  const comment = document.getElementsByClassName('commentUpdateInput').comment
+    .value;
   const response = await axios({
     url: `/api/${videoId}/comment/updateajax`,
     method: 'POST',
     data: {
-      userId,
       videoId,
-      index
+      userId,
+      index,
+      comment
     }
   });
+  if (response.status === 200) {
+    complete(event, comment);
+  }
 };
 
 const inputNode = (event) => {
+  const updateSource = event.path[1].id !== '' ? updateC : updateCAjax;
+
   const targetNode = event.target.closest('.comment__group');
   const haveToChange = targetNode.childNodes[1];
   const dot = targetNode.childNodes[2];
@@ -60,14 +72,14 @@ const inputNode = (event) => {
   input.placeholder = comment;
   input.value = comment;
   form.appendChild(input);
-  form.addEventListener('submit', updateC);
+  form.addEventListener('submit', updateSource);
 
   i1.className = 'far fa-check-circle';
   i2.className = 'far fa-times-circle';
   div1.appendChild(i1);
   div1.className = 'checkBtn';
   div1.title = '등록';
-  div1.addEventListener('click', updateC);
+  div1.addEventListener('click', updateSource);
   div2.title = '취소';
   div2.className = 'cancelBtn';
   div2.appendChild(i2);
@@ -109,6 +121,17 @@ const updateCancel = (event) => {
   }
 };
 
+const complete = (event, comment) => {
+  const parent = event.target.closest('.comment__group');
+  parent.childNodes[1].childNodes[1].innerHTML = comment;
+  parent.childNodes[1].childNodes[2].remove();
+  parent.childNodes[1].style.display = 'flex';
+  parent.childNodes[2].style.display = 'flex';
+  parent.childNodes[4].remove();
+  parent.childNodes[3].remove();
+  //   parent.childNodes[4].remove();
+};
+
 function init() {
   Array.from(updateComment).forEach((element) => {
     element.addEventListener('click', inputNode);
@@ -119,4 +142,4 @@ if (updateComment) {
   init();
 }
 
-export default updateCAjax;
+export default inputNode;
