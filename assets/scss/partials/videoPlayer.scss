@@ -12,6 +12,9 @@
   }
   .videoPlayer__controls {
     opacity: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     transition: opacity 0.2s linear;
     .videoPlayer__playbar {
       background-color: rgba(0, 0, 0, 0.5);
@@ -21,20 +24,10 @@
       width: 100%;
       display: grid;
       z-index: 1;
+      cursor: pointer;
       #playBar {
-        width: 85%;
+        pointer-events: none;
         background-color: #ef476f;
-        animation: progressAnimation 6s;
-      }
-      @keyframes progressAnimation {
-        0% {
-          width: 5%;
-          background-color: #f9bcca;
-        }
-        100% {
-          width: 85%;
-          background-color: #ef476f;
-        }
       }
     }
     .detail {

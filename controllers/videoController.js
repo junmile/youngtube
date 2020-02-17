@@ -27,7 +27,7 @@ export const search = async (req, res) => {
   try {
     videos = await Video.find({
       title: { $regex: searchingBy, $options: 'i' }
-    });
+    }).populate('creator');
     console.log(`비디오배열: ${videos}`);
   } catch (error) {
     console.log(error);

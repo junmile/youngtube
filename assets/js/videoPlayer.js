@@ -7,6 +7,8 @@ const currentTime = document.getElementById('currentTime');
 const totalTime = document.getElementById('totalTime');
 const volume = document.getElementById('jsVolume');
 const volumeController = document.getElementById('volumeController');
+const playBarBody = document.getElementById('playBarBody');
+const playBar = document.getElementById('playBar');
 
 const registerView = () => {
   const videoId = window.location.href.split('/videos/')[1];
@@ -138,6 +140,17 @@ function changeVolumeIcon(value) {
   }
 }
 
+function changePlayBar() {
+  const barWidth = videoPlayer.currentTime / videoPlayer.duration;
+  playBar.style.width = `${barWidth * 100}%`;
+}
+
+function moveCurrentTime(event) {
+  videoPlayer.currentTime =
+    (event.offsetX * videoPlayer.duration) / event.target.offsetWidth;
+  playBar.style.width = `${(event.offsetX / event.target.offsetWidth) * 100}%`;
+}
+
 function init() {
   videoPlayer.volume = 0.5;
   document.getElementById('video').addEventListener('click', handlePlayClick);
@@ -149,6 +162,8 @@ function init() {
   volumeController.addEventListener('mouseover', showSlider);
   volumeController.addEventListener('mouseleave', hideSlider);
   volume.addEventListener('input', handleDrag);
+  videoPlayer.addEventListener('timeupdate', changePlayBar);
+  playBarBody.addEventListener('click', moveCurrentTime);
 }
 
 if (videoContainer) {
