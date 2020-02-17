@@ -90,7 +90,6 @@ const handleSubmit = (event) => {
   event.preventDefault();
   const commentInput = addCommentForm.querySelector('input');
   const comment = commentInput.value;
-  console.log(commentInput);
   name = document.getElementById('hiddenName').value;
   avatar = document.getElementById('hiddenImg').value;
   sendComment(comment);

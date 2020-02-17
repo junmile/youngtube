@@ -28,7 +28,6 @@ export const search = async (req, res) => {
     videos = await Video.find({
       title: { $regex: searchingBy, $options: 'i' }
     }).populate('creator');
-    console.log(`비디오배열: ${videos}`);
   } catch (error) {
     console.log(error);
   }
@@ -44,10 +43,10 @@ export const getUpload = (req, res) =>
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path }
+    file: { location }
   } = req;
   const newVideo = await Video.create({
-    fileUrl: path,
+    fileUrl: location,
     title,
     description,
     creator: req.user.id

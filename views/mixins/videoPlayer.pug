@@ -1,7 +1,7 @@
 mixin videoPlayer(video={})
     .video__player#jsVideoPlayer
         #video
-            video.videoMedia(src=`/${video.src}`)
+            video.videoMedia(src=video.src)
         .videoPlayer__controls
             .videoPlayer__playbar#playBarBody
                 #playBar

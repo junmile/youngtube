@@ -43,7 +43,6 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
     _json: { id, avatar_url: avatarUrl, name, email }
   } = profile;
-  console.log(profile);
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -115,8 +114,6 @@ export const userDetail = async (req, res) => {
   try {
     const user = await User.findById(id);
     res.render('userDetail', { pageTitle: 'User Detail', user });
-    console.log('아바타');
-    console.log(user.avatarUrl);
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -134,7 +131,7 @@ export const postEditProfile = async (req, res) => {
     const updateUser = await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
-      avatarUrl: file ? `/${file.path}` : req.user.avatarUrl
+      avatarUrl: file ? `/${file.location}` : req.user.avatarUrl
     });
     updateUser.save();
 

@@ -29,7 +29,6 @@ const startRecording = () => {
 };
 
 const getVideo = async (event) => {
-  console.log(event);
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: true,
