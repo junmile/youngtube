@@ -7,7 +7,7 @@ const updateC = async (event) => {
   const videoId = window.location.href.split('/videos/')[1];
   const commentId = event.target.closest('.comment__group').childNodes[2]
     .childNodes[1].childNodes[0].id;
-  const comment = document.getElementsByClassName('commentUpdateInput').comment
+  const comment = event.target.closest('.comment__group').childNodes[3].comment
     .value;
 
   const response = await axios({
