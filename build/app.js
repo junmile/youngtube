@@ -47,7 +47,8 @@ console.log('시작');
 app.use((0, _helmet["default"])());
 app.set('view engine', 'pug');
 app.set('views', _path["default"].join(__dirname, 'views'));
-app.use('/static', _express["default"]["static"](_path["default"].join(__dirname, 'static')));
+app.use('/static', _express["default"]["static"](_path["default"].join(__dirname, 'static'))); // app.use(express.static(path.join(__dirname, '/public')));
+
 app.use((0, _cookieParser["default"])());
 app.use(_bodyParser["default"].json());
 app.use(_bodyParser["default"].urlencoded({
