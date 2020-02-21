@@ -11,9 +11,6 @@ const s3 = new aws.S3({
   secretAccessKey: process.env.AWS_PRIVATE_KEY
 });
 
-console.log(process.env.AWS_KEY);
-console.log(process.env.AWS_PRIVATE_KEY);
-
 const multerVideo = multer({
   storage: multerS3({
     s3,
