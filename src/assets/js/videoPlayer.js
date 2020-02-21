@@ -92,11 +92,12 @@ function getCurrentTime() {
     clearInterval();
   }
 }
+let duration;
 
 async function setTotalTime() {
   const blob = await fetch(videoPlayer.src).then((response) => response.blob());
 
-  const duration = await getBlobDuration(blob);
+  duration = await getBlobDuration(blob);
   totalTime.innerHTML = formatDate(duration);
   setInterval(getCurrentTime, 500);
 }
@@ -144,13 +145,16 @@ function changeVolumeIcon(value) {
 }
 
 function changePlayBar() {
-  const barWidth = videoPlayer.currentTime / videoPlayer.duration;
+  const barWidth = videoPlayer.currentTime / duration;
   playBar.style.width = `${barWidth * 100}%`;
 }
 
 function moveCurrentTime(event) {
   videoPlayer.currentTime =
-    (event.offsetX * videoPlayer.duration) / event.target.offsetWidth;
+    (event.offsetX * duration) / event.target.offsetWidth;
+  console.log(event.offsetX);
+  console.log(event.target.offsetWidth);
+  console.log((event.offsetX / event.target.offsetWidth) * 100);
   playBar.style.width = `${(event.offsetX / event.target.offsetWidth) * 100}%`;
 }
 
