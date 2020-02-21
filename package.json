@@ -49,9 +49,9 @@
     "build:server": "babel src --out-dir build --ignore 'src/assets','src/static','src/webpack.config.js'",
     "copyAll": "cp -R src/static build && cp -R src/views build",
     "build": "npm run build:server && npm run build:assets && npm run copyAll",
-    "prebuild": "rd -rf build",
+    "prebuild": "rd /s /q build",
     "tunnel": "ngrok http 4000",
-    "start": "PRODUCTION=true node build/init.js",
+    "start": "node build/init.js",
     "prestart": "npm run build"
   },
   "devDependencies": {
@@ -68,6 +68,7 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "shx": "^0.3.2"
   }
 }
