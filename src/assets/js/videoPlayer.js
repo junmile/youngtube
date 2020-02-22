@@ -152,11 +152,38 @@ function changePlayBar() {
 function moveCurrentTime(event) {
   videoPlayer.currentTime =
     (event.offsetX * duration) / event.target.offsetWidth;
-  console.log(event.offsetX);
-  console.log(event.target.offsetWidth);
-  console.log((event.offsetX / event.target.offsetWidth) * 100);
   playBar.style.width = `${(event.offsetX / event.target.offsetWidth) * 100}%`;
 }
+
+function pressEvent(event) {
+  const keyCode = event.keyCode;
+  const moveValue = duration / 100;
+  if (keyCode === 37) {
+    videoPlayer.currentTime -= moveValue;
+  } else if (keyCode === 38) {
+    event.preventDefault();
+    if (videoPlayer.volume + 0.1 >= 0.9) {
+      videoPlayer.volume = 1;
+    } else {
+      videoPlayer.volume += 0.1;
+    }
+  } else if (keyCode === 39) {
+    videoPlayer.currentTime += moveValue;
+  } else if (keyCode === 40) {
+    event.preventDefault();
+    if (videoPlayer.volume - 0.1 <= 0.1) {
+      videoPlayer.volume = 0;
+    } else {
+      videoPlayer.volume -= 0.1;
+    }
+  } else if (keyCode === 32) {
+    event.preventDefault();
+    handlePlayClick();
+  }
+}
+function go() {}
+
+function what(event) {}
 
 function init() {
   videoPlayer.volume = 0.5;
@@ -171,6 +198,7 @@ function init() {
   volume.addEventListener('input', handleDrag);
   videoPlayer.addEventListener('timeupdate', changePlayBar);
   playBarBody.addEventListener('click', moveCurrentTime);
+  document.addEventListener('keydown', pressEvent);
 }
 
 if (videoContainer) {
