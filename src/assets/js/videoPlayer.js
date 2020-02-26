@@ -11,6 +11,7 @@ const volume = document.getElementById('jsVolume');
 const volumeController = document.getElementById('volumeController');
 const playBarBody = document.getElementById('playBarBody');
 const playBar = document.getElementById('playBar');
+const infi = document.getElementById('jsInfinity');
 
 const registerView = () => {
   const videoId = window.location.href.split('/videos/')[1];
@@ -181,9 +182,20 @@ function pressEvent(event) {
     handlePlayClick();
   }
 }
-function go() {}
+function restart() {
+  videoPlayer.currentTime = 0;
+  videoPlayer.play();
+}
 
-function what(event) {}
+function infinity(event) {
+  if (infi.style.color !== 'rgb(252, 193, 89)') {
+    infi.style.color = 'rgb(252, 193, 89)';
+    videoPlayer.addEventListener('ended', restart);
+  } else {
+    videoPlayer.removeEventListener('ended', restart);
+    infi.style.color = 'white';
+  }
+}
 
 function init() {
   videoPlayer.volume = 0.5;
@@ -199,6 +211,7 @@ function init() {
   videoPlayer.addEventListener('timeupdate', changePlayBar);
   playBarBody.addEventListener('click', moveCurrentTime);
   document.addEventListener('keydown', pressEvent);
+  infi.addEventListener('click', infinity);
 }
 
 if (videoContainer) {
