@@ -587,6 +587,9 @@ input[type='submit'] {
            -moz-box-direction: normal;
             -ms-flex-direction: row;
                 flex-direction: row; }
+        .video__player .videoPlayer__controls .detail .videoPlayer__column:first-child i {
+          margin-left: 10px;
+          float: left; }
         .video__player .videoPlayer__controls .detail .videoPlayer__column:first-child #volumeController {
           display: -webkit-box;
           display: -webkit-flex;
