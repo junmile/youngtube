@@ -1,6 +1,7 @@
 const recorderContainer = document.getElementById('jsRecordContainer');
 const recordBtn = document.getElementById('jsRecordBtn');
 const videoPreview = document.getElementById('jsVideoPreview');
+const recoder = document.getElementById('file');
 
 let streamObject;
 let videoRecorder;
@@ -49,6 +50,22 @@ const getVideo = async (event) => {
 
 function init() {
   recordBtn.addEventListener('click', getVideo);
+
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.id = 'file';
+    input.name = 'videoFile';
+    input.required = 'true';
+    input.accept = 'video/*';
+    input.capture = 'camcorder';
+    recoder.parentNode.appendChild(input);
+    recoder.remove();
+  }
 }
 
 if (recorderContainer) {
