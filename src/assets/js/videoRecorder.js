@@ -43,7 +43,7 @@ const getVideo = async (event) => {
     startRecording();
   } catch (error) {
     recordBtn.innerHTML = "Can't record";
-    console.log(error);
+    document.getElementById('description').value = error;
   } finally {
     recordBtn.removeEventListener('click', getVideo);
   }
