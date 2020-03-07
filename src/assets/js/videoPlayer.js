@@ -1,5 +1,5 @@
 import getBlobDuration from 'get-blob-duration';
-
+const addCommentForm = document.getElementById('jsAddComment');
 const videoContainer = document.getElementById('jsVideoPlayer');
 const videoPlayer = document.querySelector('#jsVideoPlayer video');
 const playBtn = document.getElementById('jsPlayButton');
@@ -121,6 +121,7 @@ function handleDrag(event) {
   } = event;
   changeVolumeIcon(videoPlayer.volume);
   videoPlayer.volume = value;
+  videoPlayer.muted = false;
   if (value >= 0.8) {
     volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
   } else if (value >= 0.4) {
@@ -159,6 +160,7 @@ function moveCurrentTime(event) {
 function pressEvent(event) {
   const keyCode = event.keyCode;
   const moveValue = duration / 100;
+
   if (keyCode === 37) {
     videoPlayer.currentTime -= moveValue;
   } else if (keyCode === 38) {
@@ -178,8 +180,10 @@ function pressEvent(event) {
       videoPlayer.volume -= 0.1;
     }
   } else if (keyCode === 32) {
-    event.preventDefault();
-    handlePlayClick();
+    if (addCommentForm.childNodes[0].value == '') {
+      event.preventDefault();
+      handlePlayClick();
+    }
   }
 }
 function restart() {
@@ -195,6 +199,9 @@ function infinity(event) {
     videoPlayer.removeEventListener('ended', restart);
     infi.style.color = 'white';
   }
+}
+function eventRemove(event) {
+  event.preventDefault();
 }
 
 function init() {
