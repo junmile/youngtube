@@ -36,13 +36,13 @@ export const getLogin = (req, res) => {
 export const postLogin = passport.authenticate('local', {
   successRedirect: routes.home,
   failureRedirect: routes.login,
-  successFlash: 'Welcome',
-  failureFlash: "Can't log in. Check email and password",
+  successFlash: '어서오세요. YoungTube로 오신것을 환영합니다.',
+  failureFlash: '로그인할 수 없습니다. 비밀번호를 확인해 주세요.',
 });
 
 export const githubLogin = passport.authenticate('github', {
-  successFlash: 'Welcome',
-  failureFlash: "Can't log in. Check email and password",
+  successFlash: '어서오세요. YoungTube로 오신것을 환영합니다.',
+  failureFlash: '로그인할 수 없습니다. 비밀번호를 확인해 주세요.',
 });
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
@@ -75,8 +75,8 @@ export const postGithubLogIn = (req, res) => {
 };
 
 export const facebookLogin = passport.authenticate('facebook', {
-  successFlash: 'Welcome',
-  failureFlash: "Can't log in. Check email and password",
+  successFlash: '어서오세요. YoungTube로 오신것을 환영합니다.',
+  failureFlash: '로그인할 수 없습니다. 비밀번호를 확인해 주세요.',
 });
 
 export const facebookLoginCallback = async (_, __, profile, cb) => {
