@@ -9,7 +9,7 @@ block content
         .video__info
             if loggedUser && video.creator.id === loggedUser.id
                 a(href=routes.editVideo(video.id)) 
-                    button  Edit Video
+                    button  비디오 수정
 
             h5.video__title=video.title
             if video.views === 1
@@ -21,25 +21,26 @@ block content
                     img(src=video.creator.avatarUrl)
                     .video__author
                         .creator
-                            |Uploaded by 
                             a(href=routes.userDetail(video.creator.id))=video.creator.name
+                            |님에 의해 작성 되었습니다. 
                         p.video__description=video.description 
         .video__comments 
             if video.comments.length <= 1
                 span.video__comment-number
                     span#jsCommentNumber #{video.comments.length} 
-                    span#word   comment
+                    span#word   개의 댓글
             else
                 span.video__comment-number
                     span#jsCommentNumber #{video.comments.length} 
-                    span#word   comments
-            .comment
-                img.commentor(src=user.avatarUrl)    
-                form.add__comment#jsAddComment
-                    input(type="text", placeholder="Add a comment")
-                    input#hiddenImg(type="hidden", value=user.avatarUrl)
-                    input#hiddenName(type="hidden", value=user.name)
-                    input#userId(type="hidden", value=user.id)   
+                    span#word   개의 댓글
+            if loggedUser && user
+                .comment
+                    img.commentor(src=user.avatarUrl)    
+                    form.add__comment#jsAddComment
+                        input(type="text", placeholder="Add a comment")
+                        input#hiddenImg(type="hidden", value=user.avatarUrl)
+                        input#hiddenName(type="hidden", value=user.name)
+                        input#userId(type="hidden", value=user.id)   
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
                     .comment__group
@@ -51,7 +52,7 @@ block content
                             i.jsShortCut.fas.fa-ellipsis-v
                             .drop__div(style="display:none")
                                 .drop__menu(id=comment.id)
-                                    if user.id === comment.creator.id
+                                    if user && user.id === comment.creator.id
                                         span.updateComment
                                             a
                                                 i.fas.fa-pencil-alt  

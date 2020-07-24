@@ -8,23 +8,23 @@ dotEnv.config();
 
 const s3 = new aws.S3({
   accessKeyId: process.env.AWS_KEY,
-  secretAccessKey: process.env.AWS_PRIVATE_KEY
+  secretAccessKey: process.env.AWS_PRIVATE_KEY,
 });
 
 const multerVideo = multer({
   storage: multerS3({
     s3,
     acl: 'public-read',
-    bucket: 'youngtube/video'
-  })
+    bucket: 'youngtube/video',
+  }),
 });
 
 const multerAvatar = multer({
   storage: multerS3({
     s3,
     acl: 'public-read',
-    bucket: 'youngtube/avatar'
-  })
+    bucket: 'youngtube/avatar',
+  }),
 });
 
 export const uploadVideo = multerVideo.single('videoFile');
@@ -46,9 +46,9 @@ export const onlyPublic = (req, res, next) => {
 };
 
 export const onlyPrivate = (req, res, next) => {
-  if (req.user) {
-    next();
-  } else {
+  if (!req.user) {
     res.redirect(routes.home);
+  } else {
+    next();
   }
 };

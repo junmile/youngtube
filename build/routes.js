@@ -46,9 +46,9 @@ var routes = {
   userDetail: function userDetail(id) {
     if (id) {
       return "/users/".concat(id);
+    } else {
+      return USER_DETAIL;
     }
-
-    return USER_DETAIL;
   },
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
@@ -57,23 +57,23 @@ var routes = {
   videoDetail: function videoDetail(id) {
     if (id) {
       return "/videos/".concat(id);
+    } else {
+      return VIDEO_DETAIL;
     }
-
-    return VIDEO_DETAIL;
   },
   editVideo: function editVideo(id) {
     if (id) {
       return "/videos/".concat(id, "/edit");
+    } else {
+      return EDIT_VIDEO;
     }
-
-    return EDIT_VIDEO;
   },
   deleteVideo: function deleteVideo(id) {
     if (id) {
       return "/videos/".concat(id, "/delete");
+    } else {
+      return DELETE_VIDEO;
     }
-
-    return DELETE_VIDEO;
   },
   gitHub: GITHUB,
   githubCallback: GITHUB_CALLBACK,

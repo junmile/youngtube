@@ -8,6 +8,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+var addCommentForm = document.getElementById('jsAddComment');
 var videoContainer = document.getElementById('jsVideoPlayer');
 var videoPlayer = document.querySelector('#jsVideoPlayer video');
 var playBtn = document.getElementById('jsPlayButton');
@@ -19,6 +20,7 @@ var volume = document.getElementById('jsVolume');
 var volumeController = document.getElementById('volumeController');
 var playBarBody = document.getElementById('playBarBody');
 var playBar = document.getElementById('playBar');
+var infi = document.getElementById('jsInfinity');
 
 var registerView = function registerView() {
   var videoId = window.location.href.split('/videos/')[1];
@@ -109,6 +111,8 @@ function getCurrentTime() {
   }
 }
 
+var duration;
+
 function setTotalTime() {
   return _setTotalTime.apply(this, arguments);
 }
@@ -117,7 +121,7 @@ function _setTotalTime() {
   _setTotalTime = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee() {
-    var blob, duration;
+    var blob;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -164,6 +168,7 @@ function handleDrag(event) {
   var value = event.target.value;
   changeVolumeIcon(videoPlayer.volume);
   videoPlayer.volume = value;
+  videoPlayer.muted = false;
 
   if (value >= 0.8) {
     volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
@@ -191,13 +196,64 @@ function changeVolumeIcon(value) {
 }
 
 function changePlayBar() {
-  var barWidth = videoPlayer.currentTime / videoPlayer.duration;
+  var barWidth = videoPlayer.currentTime / duration;
   playBar.style.width = "".concat(barWidth * 100, "%");
 }
 
 function moveCurrentTime(event) {
-  videoPlayer.currentTime = event.offsetX * videoPlayer.duration / event.target.offsetWidth;
+  videoPlayer.currentTime = event.offsetX * duration / event.target.offsetWidth;
   playBar.style.width = "".concat(event.offsetX / event.target.offsetWidth * 100, "%");
+}
+
+function pressEvent(event) {
+  var keyCode = event.keyCode;
+  var moveValue = duration / 100;
+
+  if (keyCode === 37) {
+    videoPlayer.currentTime -= moveValue;
+  } else if (keyCode === 38) {
+    event.preventDefault();
+
+    if (videoPlayer.volume + 0.1 >= 0.9) {
+      videoPlayer.volume = 1;
+    } else {
+      videoPlayer.volume += 0.1;
+    }
+  } else if (keyCode === 39) {
+    videoPlayer.currentTime += moveValue;
+  } else if (keyCode === 40) {
+    event.preventDefault();
+
+    if (videoPlayer.volume - 0.1 <= 0.1) {
+      videoPlayer.volume = 0;
+    } else {
+      videoPlayer.volume -= 0.1;
+    }
+  } else if (keyCode === 32) {
+    if (addCommentForm.childNodes[0].value == '') {
+      event.preventDefault();
+      handlePlayClick();
+    }
+  }
+}
+
+function restart() {
+  videoPlayer.currentTime = 0;
+  videoPlayer.play();
+}
+
+function infinity(event) {
+  if (infi.style.color !== 'rgb(252, 193, 89)') {
+    infi.style.color = 'rgb(252, 193, 89)';
+    videoPlayer.addEventListener('ended', restart);
+  } else {
+    videoPlayer.removeEventListener('ended', restart);
+    infi.style.color = 'white';
+  }
+}
+
+function eventRemove(event) {
+  event.preventDefault();
 }
 
 function init() {
@@ -213,6 +269,8 @@ function init() {
   volume.addEventListener('input', handleDrag);
   videoPlayer.addEventListener('timeupdate', changePlayBar);
   playBarBody.addEventListener('click', moveCurrentTime);
+  document.addEventListener('keydown', pressEvent);
+  infi.addEventListener('click', infinity);
 }
 
 if (videoContainer) {

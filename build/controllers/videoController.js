@@ -201,34 +201,51 @@ function () {
 
           case 4:
             video = _context4.sent;
-            _context4.next = 7;
+
+            if (!(req.user !== undefined)) {
+              _context4.next = 9;
+              break;
+            }
+
+            _context4.next = 8;
             return _User["default"].findById(req.user.id);
 
-          case 7:
+          case 8:
             user = _context4.sent;
+
+          case 9:
             video.views += 1;
             video.save();
             res.status(200);
-            res.render('videoDetail', {
-              pageTitle: video.title,
-              video: video,
-              user: user
-            });
-            _context4.next = 18;
+
+            if (user !== undefined) {
+              res.render('videoDetail', {
+                pageTitle: video.title,
+                video: video,
+                user: user
+              });
+            } else {
+              res.render('videoDetail', {
+                pageTitle: video.title,
+                video: video
+              });
+            }
+
+            _context4.next = 19;
             break;
 
-          case 14:
-            _context4.prev = 14;
+          case 15:
+            _context4.prev = 15;
             _context4.t0 = _context4["catch"](1);
             res.status(400);
             res.redirect(_routes["default"].home);
 
-          case 18:
+          case 19:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4, null, [[1, 14]]);
+    }, _callee4, null, [[1, 15]]);
   }));
 
   return function videoDetail(_x7, _x8) {

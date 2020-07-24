@@ -4,10 +4,10 @@ block content
     .form__container
         .form__container__top
             .title
-                |Edit Profile
+                |프로필 수정
             .body
                 form(action=`/users${routes.editProfile}`, Method="post" enctype="multipart/form-data")
-                    label(for="avatar") Avatar
+                    label(for="avatar") 
                     input(type="file", id="avatar", name="avatar", accept="image/*")
                     input(type="text", placeholder="Name", name="name" value=loggedUser.name)
                     input(type="email", placeholder="Email", name="email" value=loggedUser.email)

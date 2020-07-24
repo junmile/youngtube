@@ -4,17 +4,17 @@ block content
     .form__container
         .form__container__top
             .title
-                |Video Upload
+                |비디오 업로드
             .body
                 .record__container#jsRecordContainer
                     video#jsVideoPreview
-                    button#jsRecordBtn Start Recording
+                    button#jsRecordBtn 녹화 시작
                 form(action=`/videos${routes.upload}`, method="post", enctype="multipart/form-data")
                     .fileUpload
-                        label(for="file") Video File
+                        label(for="file") 비디오 
                         input(type="file", id="file", name="videoFile", required=true, accept="video/*")
-                    label(for="titleinput") Title
+                    label(for="titleinput") 제목
                     input(id="titleinput" type="text", placeholder="Title", name="title", required=true)
-                    label(for="description") Descrition
+                    label(for="description") 설명
                     textarea(name="description", id="description", placeholder="Description", required=true)
                     input(type="submit", value="Upload Video")

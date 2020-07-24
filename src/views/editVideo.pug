@@ -4,15 +4,15 @@ block content
     .edit__form__container
         .edit__form__container__top
             .title 
-                h3 Edit Video
+                h3 비디오 수정
             .body
                 .video__image
                     video#editvideo(src=`/${video.fileUrl}`)
                 form(action=routes.editVideo(video.id), method="post")
-                    h5.margin15 Title:
+                    h5.margin15 제목:
                     input#updateinput(type="text", placeholder="Title", name="title", value=video.title)
-                    h5.margin15 Content:
+                    h5.margin15 설명:
                     textarea#updatetextarea(name="description", placeholder="Description")=video.description
                     input.margin15(type="submit", value="Update Video")
                 a.form-container__link(href=routes.deleteVideo(video.id)) 
-                    button Delete Video 
+                    button 비디오 삭제 

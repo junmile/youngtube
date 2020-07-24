@@ -21,12 +21,12 @@ export const home = async (req, res) => {
 
 export const search = async (req, res) => {
   const {
-    query: { term: searchingBy }
+    query: { term: searchingBy },
   } = req;
   let videos = [];
   try {
     videos = await Video.find({
-      title: { $regex: searchingBy, $options: 'i' }
+      title: { $regex: searchingBy, $options: 'i' },
     }).populate('creator');
   } catch (error) {
     console.log(error);
@@ -43,13 +43,13 @@ export const getUpload = (req, res) =>
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { location }
+    file: { location },
   } = req;
   const newVideo = await Video.create({
     fileUrl: location,
     title,
     description,
-    creator: req.user.id
+    creator: req.user.id,
   });
   req.user.videos.push(newVideo.id);
   req.user.save();
@@ -60,24 +60,34 @@ export const postUpload = async (req, res) => {
 
 export const videoDetail = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const video = await Video.findById(id)
       .populate('creator')
       .populate({
         path: 'comments',
-        populate: { path: 'creator' }
+        populate: { path: 'creator' },
       });
-    const user = await User.findById(req.user.id);
+    let user;
+    if (req.user !== undefined) {
+      user = await User.findById(req.user.id);
+    }
     video.views += 1;
     video.save();
     res.status(200);
-    res.render('videoDetail', {
-      pageTitle: video.title,
-      video,
-      user
-    });
+    if (user !== undefined) {
+      res.render('videoDetail', {
+        pageTitle: video.title,
+        video,
+        user,
+      });
+    } else {
+      res.render('videoDetail', {
+        pageTitle: video.title,
+        video,
+      });
+    }
   } catch (error) {
     res.status(400);
     res.redirect(routes.home);
@@ -88,7 +98,7 @@ export const videoDetail = async (req, res) => {
 
 export const getEditVideo = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const video = await Video.findById(id);
@@ -101,7 +111,7 @@ export const getEditVideo = async (req, res) => {
 export const postEditVideo = async (req, res) => {
   const {
     params: { id },
-    body: { title, description }
+    body: { title, description },
   } = req;
   try {
     await Video.findOneAndUpdate({ _id: id }, { title, description });
@@ -115,7 +125,7 @@ export const postEditVideo = async (req, res) => {
 
 export const deleteVideo = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
 
   try {
@@ -141,14 +151,14 @@ export const postAddComment = async (req, res) => {
   const {
     params: { id },
     body: { comment, videoId },
-    user
+    user,
   } = req;
   try {
     const video = await Video.findById(id);
     const newComment = await Comment.create({
       text: comment,
       creator: user,
-      video: videoId
+      video: videoId,
     });
     video.comments.push(newComment.id);
     video.save();
@@ -162,7 +172,7 @@ export const postAddComment = async (req, res) => {
 
 export const postDeleteComment = async (req, res) => {
   const {
-    body: { commentId, videoId }
+    body: { commentId, videoId },
   } = req;
 
   try {
@@ -177,7 +187,7 @@ export const postDeleteComment = async (req, res) => {
 
 export const postDeleteCommentAjax = async (req, res) => {
   const {
-    body: { index, userId, videoId }
+    body: { index, userId, videoId },
   } = req;
   try {
     const arr = await Comment.find()
@@ -199,7 +209,7 @@ export const postDeleteCommentAjax = async (req, res) => {
 
 export const postUpdateComment = async (req, res) => {
   const {
-    body: { commentId, comment }
+    body: { commentId, comment },
   } = req;
   try {
     await Comment.findByIdAndUpdate(commentId, { text: comment });
@@ -211,8 +221,9 @@ export const postUpdateComment = async (req, res) => {
 };
 export const postUpdateCommentAjax = async (req, res) => {
   const {
-    body: { videoId, userId, index, comment }
+    body: { videoId, userId, index, comment },
   } = req;
+
   try {
     const arr = await Comment.find()
       .where('creator')

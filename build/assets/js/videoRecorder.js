@@ -7,6 +7,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var recorderContainer = document.getElementById('jsRecordContainer');
 var recordBtn = document.getElementById('jsRecordBtn');
 var videoPreview = document.getElementById('jsVideoPreview');
+var recoder = document.getElementById('file');
 var streamObject;
 var videoRecorder;
 
@@ -62,25 +63,26 @@ function () {
             recordBtn.innerHTML = 'Stop Recording';
             streamObject = stream;
             startRecording();
-            _context.next = 15;
+            _context.next = 16;
             break;
 
           case 12:
             _context.prev = 12;
             _context.t0 = _context["catch"](0);
             recordBtn.innerHTML = "Can't record";
+            document.getElementById('description').value = _context.t0;
 
-          case 15:
-            _context.prev = 15;
+          case 16:
+            _context.prev = 16;
             recordBtn.removeEventListener('click', getVideo);
-            return _context.finish(15);
+            return _context.finish(16);
 
-          case 18:
+          case 19:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 12, 15, 18]]);
+    }, _callee, null, [[0, 12, 16, 19]]);
   }));
 
   return function getVideo(_x) {
@@ -90,6 +92,18 @@ function () {
 
 function init() {
   recordBtn.addEventListener('click', getVideo);
+
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.id = 'file';
+    input.name = 'videoFile';
+    input.required = 'true';
+    input.accept = 'video/*';
+    input.capture = 'camcorder';
+    recoder.parentNode.appendChild(input);
+    recoder.remove();
+  }
 }
 
 if (recorderContainer) {

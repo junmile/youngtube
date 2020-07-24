@@ -23,8 +23,6 @@ var s3 = new _awsSdk["default"].S3({
   accessKeyId: process.env.AWS_KEY,
   secretAccessKey: process.env.AWS_PRIVATE_KEY
 });
-console.log(process.env.AWS_KEY);
-console.log(process.env.AWS_PRIVATE_KEY);
 var multerVideo = (0, _multer["default"])({
   storage: (0, _multerS["default"])({
     s3: s3,
@@ -64,10 +62,10 @@ var onlyPublic = function onlyPublic(req, res, next) {
 exports.onlyPublic = onlyPublic;
 
 var onlyPrivate = function onlyPrivate(req, res, next) {
-  if (req.user) {
-    next();
-  } else {
+  if (!req.user) {
     res.redirect(_routes["default"].home);
+  } else {
+    next();
   }
 };
 

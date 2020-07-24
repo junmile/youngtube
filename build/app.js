@@ -17,6 +17,8 @@ var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 
 var _bodyParser = _interopRequireDefault(require("body-parser"));
 
+var _expressFlash = _interopRequireDefault(require("express-flash"));
+
 var _passport = _interopRequireDefault(require("passport"));
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
@@ -62,6 +64,7 @@ app.use((0, _expressSession["default"])({
     mongooseConnection: _mongoose["default"].connection
   })
 }));
+app.use((0, _expressFlash["default"])());
 app.use(_passport["default"].initialize());
 app.use(_passport["default"].session());
 app.use(_middlewares.localsMiddleware);
