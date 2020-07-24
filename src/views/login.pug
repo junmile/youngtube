@@ -6,7 +6,7 @@ block content
                 h3 로그인
             .body
                 form(action=routes.login, method="post")
-                    input(type="email", name="email", placeholder="Email", required=true)
-                    input(type="password", name="password", placeholder="Password", required=true)
-                    input(type="submit", value="Login Now")
+                    input(type="email", name="email", placeholder="이메일", required=true)
+                    input(type="password", name="password", placeholder="비밀번호", required=true)
+                    input(type="submit", value="확인")
                 include partials/socialLogin

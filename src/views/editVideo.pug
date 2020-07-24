@@ -10,9 +10,9 @@ block content
                     video#editvideo(src=`/${video.fileUrl}`)
                 form(action=routes.editVideo(video.id), method="post")
                     h5.margin15 제목:
-                    input#updateinput(type="text", placeholder="Title", name="title", value=video.title)
+                    input#updateinput(type="text", placeholder="제목", name="title", value=video.title)
                     h5.margin15 설명:
-                    textarea#updatetextarea(name="description", placeholder="Description")=video.description
+                    textarea#updatetextarea(name="description", placeholder="설명")=video.description
                     input.margin15(type="submit", value="Update Video")
                 a.form-container__link(href=routes.deleteVideo(video.id)) 
                     button 비디오 삭제 
