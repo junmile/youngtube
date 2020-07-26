@@ -1,18 +1,19 @@
 #Young Tube
 
-Cloning Youtube with Vanilla and NodeJS
+node.js를 사용한 동영상 업로드 및 플레이 사이트
 
 
 ## Pages:
-- [ ] Home
-- [ ] Join
-- [ ] Login
-- [x] Search
-- [ ] User Detail
-- [ ] Edit Profile
-- [ ] Change Password
-- [ ] Upload
-- [ ] Video Detail
-- [ ] Edit Video
+- [x] 홈
+- [x] 회원가입
+- [x] 로그인
+- [x] 비디오 검색
+- [x] 회원정보
+- [x] 프로필 수정
+- [x] 비밀번호 변경
+- [x] 비디오 업로드
+- [x] 비디오 상세 페이지
+- [x] 비디오 수정및 삭제
+
   
   
